@@ -20,6 +20,9 @@ sdlc-telemetry = "sdlc_telemetry.cli:app"
 [tool.hatch.build.targets.wheel]
 packages = ["src/sdlc_telemetry"]
 
+[tool.hatch.build.targets.wheel.force-include]
+"hooks" = "sdlc_telemetry/_hooks"
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["hooks"]
