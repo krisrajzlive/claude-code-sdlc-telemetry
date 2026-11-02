@@ -1,0 +1,42 @@
+{
+  "env": {
+    "CLAUDE_CODE_ENABLE_TELEMETRY": "1",
+    "OTEL_METRICS_EXPORTER": "otlp",
+    "OTEL_LOGS_EXPORTER": "otlp",
+    "OTEL_EXPORTER_OTLP_PROTOCOL": "grpc",
+    "OTEL_EXPORTER_OTLP_ENDPOINT": "http://localhost:4317"
+  },
+  "hooks": {
+    "UserPromptSubmit": [
+      { "hooks": [{ "type": "command", "command": "python \"$CLAUDE_PROJECT_DIR/hooks/log_event.py\"" }] }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash|Write|Edit|MultiEdit",
+        "hooks": [{ "type": "command", "command": "python \"$CLAUDE_PROJECT_DIR/hooks/guard.py\"" }]
+      },
+      {
+        "matcher": "Skill|Task",
+        "hooks": [{ "type": "command", "command": "python \"$CLAUDE_PROJECT_DIR/hooks/log_event.py\"" }]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Skill|Task|Bash",
+        "hooks": [{ "type": "command", "command": "python \"$CLAUDE_PROJECT_DIR/hooks/log_event.py\"" }]
+      }
+    ],
+    "PostToolUseFailure": [
+      {
+        "matcher": "Skill|Task|Bash",
+        "hooks": [{ "type": "command", "command": "python \"$CLAUDE_PROJECT_DIR/hooks/log_event.py\"" }]
+      }
+    ],
+    "SubagentStop": [
+      { "hooks": [{ "type": "command", "command": "python \"$CLAUDE_PROJECT_DIR/hooks/log_event.py\"" }] }
+    ],
+    "Stop": [
+      { "hooks": [{ "type": "command", "command": "python \"$CLAUDE_PROJECT_DIR/hooks/log_event.py\"" }] }
+    ]
+  }
+}

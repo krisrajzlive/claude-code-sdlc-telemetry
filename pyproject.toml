@@ -1,0 +1,29 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "claude-code-sdlc-telemetry"
+version = "0.1.0"
+description = "Measure a Claude Code SDLC workflow: hook events, transcripts, git and CI data in one DuckDB store."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = ["duckdb>=1.0", "typer>=0.12"]
+
+[project.optional-dependencies]
+dashboard = ["streamlit>=1.35", "pandas>=2.0"]
+dev = ["pytest>=8", "ruff>=0.5"]
+
+[project.scripts]
+sdlc-telemetry = "sdlc_telemetry.cli:app"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/sdlc_telemetry"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["hooks"]
+
+[tool.ruff]
+line-length = 100
+src = ["src", "tests", "hooks"]

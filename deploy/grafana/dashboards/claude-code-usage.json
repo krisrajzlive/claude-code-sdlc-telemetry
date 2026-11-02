@@ -1,0 +1,19 @@
+{
+  "title": "Claude Code usage",
+  "uid": "claude-code-usage",
+  "schemaVersion": 39,
+  "time": { "from": "now-7d", "to": "now" },
+  "panels": [
+    { "id": 1, "type": "timeseries", "title": "Cost (USD)", "gridPos": { "x": 0, "y": 0, "w": 12, "h": 8 },
+      "targets": [{ "datasource": { "uid": "prometheus" }, "expr": "sum(increase(claude_code_cost_usage_total[1h]))" }] },
+    { "id": 2, "type": "timeseries", "title": "Tokens by type", "gridPos": { "x": 12, "y": 0, "w": 12, "h": 8 },
+      "targets": [{ "datasource": { "uid": "prometheus" }, "expr": "sum by (type) (increase(claude_code_token_usage_total[1h]))", "legendFormat": "{{type}}" }] },
+    { "id": 3, "type": "timeseries", "title": "Lines of code (added / removed)", "gridPos": { "x": 0, "y": 8, "w": 12, "h": 8 },
+      "targets": [{ "datasource": { "uid": "prometheus" }, "expr": "sum by (type) (increase(claude_code_lines_of_code_count_total[1h]))", "legendFormat": "{{type}}" }] },
+    { "id": 4, "type": "stat", "title": "Edit accept rate", "gridPos": { "x": 12, "y": 8, "w": 6, "h": 8 },
+      "targets": [{ "datasource": { "uid": "prometheus" }, "expr": "sum(increase(claude_code_code_edit_tool_decision_total{decision=\"accept\"}[7d])) / sum(increase(claude_code_code_edit_tool_decision_total[7d]))" }],
+      "fieldConfig": { "defaults": { "unit": "percentunit" } } },
+    { "id": 5, "type": "stat", "title": "Sessions (7d)", "gridPos": { "x": 18, "y": 8, "w": 6, "h": 8 },
+      "targets": [{ "datasource": { "uid": "prometheus" }, "expr": "sum(increase(claude_code_session_count_total[7d]))" }] }
+  ]
+}
