@@ -5,7 +5,7 @@ Each metric is a DuckDB view in [`views.sql`](../src/sdlc_telemetry/views.sql). 
 | Metric | View | Formula | Source |
 |---|---|---|---|
 | Weekly sessions / prompts | `v_adoption_weekly` | distinct session ids and user prompts per week | transcript |
-| Skill / subagent invocations | `v_component_usage` | count of `PostToolUse` + `PostToolUseFailure` for tool `Skill` / `Task`, grouped by name | hooks |
+| Skill / subagent invocations | `v_component_usage` | count of `PostToolUse` + `PostToolUseFailure` for tool `Skill` / `Task` / `Agent` (the subagent tool is named `Agent` in recent Claude Code versions), grouped by name | hooks |
 | Skill / subagent failure rate | `v_component_usage` | failures / invocations | hooks |
 | Skill / subagent latency | `v_component_usage` | `PostToolUse*` ts minus `PreToolUse` ts, matched on `tool_use_id` | hooks |
 | Gate pass rate | `v_stage_quality` | passing Bash runs / all runs, per stage (test, lint, build) | hooks |

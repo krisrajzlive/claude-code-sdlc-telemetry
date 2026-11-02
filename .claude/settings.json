@@ -16,19 +16,19 @@
         "hooks": [{ "type": "command", "command": "python \"$CLAUDE_PROJECT_DIR/hooks/guard.py\"" }]
       },
       {
-        "matcher": "Skill|Task",
+        "matcher": "Skill|Task|Agent",
         "hooks": [{ "type": "command", "command": "python \"$CLAUDE_PROJECT_DIR/hooks/log_event.py\"" }]
       }
     ],
     "PostToolUse": [
       {
-        "matcher": "Skill|Task|Bash",
+        "matcher": "Skill|Task|Agent|Bash",
         "hooks": [{ "type": "command", "command": "python \"$CLAUDE_PROJECT_DIR/hooks/log_event.py\"" }]
       }
     ],
     "PostToolUseFailure": [
       {
-        "matcher": "Skill|Task|Bash",
+        "matcher": "Skill|Task|Agent|Bash",
         "hooks": [{ "type": "command", "command": "python \"$CLAUDE_PROJECT_DIR/hooks/log_event.py\"" }]
       }
     ],

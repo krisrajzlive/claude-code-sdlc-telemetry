@@ -41,7 +41,7 @@ def build_record(payload: dict, event: str | None = None) -> dict:
     name = ""
     if tool == "Skill":
         name = tool_input.get("skill", "")
-    elif tool == "Task":
+    elif tool in ("Task", "Agent"):
         name = tool_input.get("subagent_type", "")
     elif event == "SubagentStop":
         name = payload.get("agent_type") or payload.get("subagent_type") or ""

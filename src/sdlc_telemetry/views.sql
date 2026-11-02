@@ -12,7 +12,7 @@ WITH pre AS (
     SELECT tool_use_id, ts FROM hook_events WHERE event = 'PreToolUse' AND tool_use_id <> ''
 ), post AS (
     SELECT * FROM hook_events
-    WHERE event IN ('PostToolUse', 'PostToolUseFailure') AND tool IN ('Skill', 'Task')
+    WHERE event IN ('PostToolUse', 'PostToolUseFailure') AND tool IN ('Skill', 'Task', 'Agent')
 )
 SELECT post.tool AS kind,
        post.name AS component,

@@ -45,3 +45,10 @@ def test_guard_rules():
     write = lambda p: guard.evaluate({"tool_name": "Write", "tool_input": {"file_path": p}})
     assert write("C:\\proj\\.env") == "env-file-write"
     assert write("proj/.env.example") is None
+
+
+def test_agent_tool_name_is_captured_like_task():
+    rec = log_event.build_record(
+        {"hook_event_name": "PreToolUse", "tool_name": "Agent",
+         "tool_input": {"subagent_type": "code-reviewer"}})
+    assert rec["name"] == "code-reviewer"
