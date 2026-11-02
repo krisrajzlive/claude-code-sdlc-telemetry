@@ -6,6 +6,7 @@ import log_event
 
 def test_classify_stage():
     assert log_event.classify_stage("python -m pytest -q") == "test"
+    assert log_event.classify_stage("node --test app/api") == "test"
     assert log_event.classify_stage("ruff check .") == "lint"
     assert log_event.classify_stage("npm run build") == "build"
     assert log_event.classify_stage("ls -la") == "other"

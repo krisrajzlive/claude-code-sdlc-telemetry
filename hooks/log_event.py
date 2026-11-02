@@ -14,7 +14,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 
 STAGE_PATTERNS = {
-    "test": r"\b(pytest|jest|vitest|go test|cargo test|dotnet test|mvn\s+test|npm (run )?test|yarn test)\b",
+    "test": r"\b(pytest|jest|vitest|go test|node --test|cargo test|dotnet test|mvn\s+test|npm (run )?test|yarn test)\b",
     "lint": r"\b(ruff|eslint|flake8|pylint|mypy|tsc|golangci-lint|prettier --check)\b",
     "build": r"\b(npm run build|yarn build|docker build|cargo build|dotnet build|mvn\s+(package|compile)|make)\b",
 }

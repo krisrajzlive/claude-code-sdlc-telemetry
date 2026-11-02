@@ -20,6 +20,7 @@ def ingest_cmd(
     events: str = typer.Option(".sdlc-telemetry/events.jsonl", help="Hook event log."),
     transcripts: str | None = typer.Option(
         "~/.claude/projects", help="Claude Code transcripts root. Empty to skip."),
+    no_transcripts: bool = typer.Option(False, "--no-transcripts", help="Skip transcript ingest."),
     repo: str | None = typer.Option(None, help="Git repo to read PRs/commits from via gh/git."),
     pricing: str | None = typer.Option(None, help="JSON file of per-model token prices."),
 ) -> None:
@@ -27,7 +28,7 @@ def ingest_cmd(
     if pricing:
         store.load_pricing_file(con, pricing)
     typer.echo(f"hook events: {ingest.ingest_events(con, events)}")
-    if transcripts:
+    if transcripts and not no_transcripts:
         typer.echo(f"transcripts: {ingest.ingest_transcripts(con, Path(transcripts).expanduser())}")
     if repo:
         typer.echo(f"git/ci: {gitci.ingest_git(con, repo)}")
